@@ -48,6 +48,9 @@ def emergency():
 @radio.route('/network/add/', methods=['GET', 'POST'])
 @login_required
 def network_add():
+    if not auth.can_admin():
+        auth.deny()
+
     form = NetworkForm(request.form)
 
     if form.validate_on_submit():
@@ -572,6 +575,9 @@ def telephony_station(station_id):
 @radio.route('/telephony/add/', methods=['GET', 'POST'])
 @login_required
 def telephony_add():
+    if not auth.can_admin():
+        auth.deny()
+
     form = StationTelephonyForm(request.form)
     station = None
 
